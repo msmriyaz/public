@@ -68,11 +68,18 @@ ForEach ($Runtime in $RuntimePath31)
 
 # Download the ASP.NET Core Runtime 3.1.0 installer to C:\Temp\ASPNETCoreRuntime31 directory
 $currentDownloadPath = "C:\Temp\ASPNETCoreRuntime31\Files\"
-$downloadLink = "https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-3.1.423-windows-x64-installer"
-Invoke-WebRequest -Uri $downloadLink -OutFile $($currentDownloadPath + "sdk-3.1.423-windows-x64-installer")
+$downloadLink = "https://download.visualstudio.microsoft.com/download/pr/c6eac4d8-45f2-442d-a43d-79b30249cef8/35ffdb7ea4dc51f11705732a3a1d1d4c/dotnet-sdk-3.1.423-win-x64.exe"
+
+$ProgressPreference = 'SilentlyContinue'
+Invoke-WebRequest -Uri $downloadLink -OutFile $($currentDownloadPath + "dotnet-sdk-3.1.423-win-x64.exe")
+$ProgressPreference = 'Continue'
 
 # upgrade the existing aspnetcore runtime
-Start-Process -FilePath $($currentDownloadPath + "sdk-3.1.423-windows-x64-installer") -ArgumentList "/install /quiet /norestart" -Wait
+Start-Process -FilePath $($currentDownloadPath + "dotnet-sdk-3.1.423-win-x64.exe") -ArgumentList "/install /quiet /norestart" -Wait
+
+# reload environment variables
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
 dotnet --list-runtimes
-Remove-Item $($currentDownloadPath + "aspnetcore-runtime-3.1.29-win-x64.exe")
+
+Remove-Item $($currentDownloadPath + "dotnet-sdk-3.1.423-win-x64.exe")
 Read-Host -Prompt "Press any key to continue..."
