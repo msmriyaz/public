@@ -5,7 +5,9 @@ if (!(Test-Path -Path "C:\Temp")) {
 $downloadPath = "C:\Temp\"
 
 # Download link "https://github.com/PSAppDeployToolkit/PSAppDeployToolkit/releases/download/3.8.4/PSAppDeployToolkit_v3.8.4.zip" to C:\Temp directory
+$ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri "https://github.com/PSAppDeployToolkit/PSAppDeployToolkit/releases/download/3.8.4/PSAppDeployToolkit_v3.8.4.zip" -OutFile $($downloadPath + "PSAppDeployToolkit_v3.8.4.zip")
+$ProgressPreference = 'Continue'
 
 # Run Unblock-File command on the downloaded file as administrator
 Unblock-File -Path $($downloadPath + "PSAppDeployToolkit_v3.8.4.zip")
@@ -70,14 +72,18 @@ ForEach ($Runtime in $RuntimePath31)
 $currentDownloadPath = "C:\Temp\ASPNETCoreRuntime31\Files\"
 $downloadLink = "https://download.visualstudio.microsoft.com/download/pr/c6eac4d8-45f2-442d-a43d-79b30249cef8/35ffdb7ea4dc51f11705732a3a1d1d4c/dotnet-sdk-3.1.423-win-x64.exe"
 
+Write-Host "Downloading ASP.NET Core Runtime 3.1.28 installer to C:\Temp\ASPNETCoreRuntime31\Files directory"
 $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri $downloadLink -OutFile $($currentDownloadPath + "dotnet-sdk-3.1.423-win-x64.exe")
 $ProgressPreference = 'Continue'
 
+Write-Host "Download complete"
+Write-Host "Running the installer now"
 # upgrade the existing aspnetcore runtime
 Start-Process -FilePath $($currentDownloadPath + "dotnet-sdk-3.1.423-win-x64.exe") -ArgumentList "/install /quiet /norestart" -Wait
 
 # reload environment variables
+write-host "Reloading environment variables"
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
 dotnet --list-runtimes
 
