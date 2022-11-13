@@ -43,32 +43,55 @@ Catch {
     If (Test-Path -LiteralPath 'variable:HostInvocation') { $script:ExitCode = $mainExitCode; Exit } Else { Exit $mainExitCode }
 }
 
-# Remove Any Existing Version of ASP.NET Core Runtime Shared Framework 3.1
+# Warnning of removing the following
 $SFPath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include AspNetCoreSharedFrameworkBundle*.exe -Recurse -ErrorAction SilentlyContinue
 ForEach ($SF in $SFPath31)
 {
-    Write-Log -Message "Found $($SF.FullName), now attempting to uninstall $installTitle."
-    Execute-Process -Path "$SF" -Parameters "/uninstall /quiet /norestart /log C:\Windows\Logs\Software\ASPNETSharedFramework31-Uninstall.log" -WindowStyle Hidden
-    Start-Sleep -Seconds 5
+    Write-Host -f Yellow "Found $($SF.FullName), and will uninstall $installTitle."    
 }
 
 $RuntimeHB31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include WindowsServerHostingBundle.exe -Recurse -ErrorAction SilentlyContinue
 ForEach ($Runtime in $RuntimeHB31)
 {
-    Write-Log -Message "Found $($Runtime.FullName), now attempting to uninstall $installTitle."
-    Execute-Process -Path "$Runtime" -Parameters "/uninstall /quiet /norestart /log C:\Windows\Logs\Software\ASPNETCoreHostingBundle31-Uninstall.log" -WindowStyle Hidden
-    Start-Sleep -Seconds 5
+    Write-Host -f Yellow  "Found $($Runtime.FullName), and will uninstall $installTitle."    
 }
 
 $RuntimePath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include dotnet-runtime-3.1.*win*.exe -Recurse -ErrorAction SilentlyContinue
 ForEach ($Runtime in $RuntimePath31)
 {
-    Write-Log -Message "Found $($Runtime.FullName), now attempting to uninstall $installTitle."
-    Execute-Process -Path "$Runtime" -Parameters "/uninstall /quiet /norestart /log C:\Windows\Logs\Software\ASPNETCoreRuntime31-Uninstall.log" -WindowStyle Hidden
-    Start-Sleep -Seconds 5
+    Write-Host -f Yellow  "Found $($Runtime.FullName), and will uninstall $installTitle."    
 }
 
-# Download the ASP.NET Core Runtime 3.1.0 installer to C:\Temp\ASPNETCoreRuntime31 directory
+# ask the user if they want to remove? if yes, remove
+$remove = Read-Host -Prompt "Do you want to remove the above? (y/n)"
+if ($remove -eq "y") {
+    # Remove Any Existing Version of ASP.NET Core Runtime Shared Framework 3.1
+    $SFPath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include AspNetCoreSharedFrameworkBundle*.exe -Recurse -ErrorAction SilentlyContinue
+    ForEach ($SF in $SFPath31)
+    {
+        Write-Log -Message "Found $($SF.FullName), now attempting to uninstall $installTitle."
+        Execute-Process -Path "$SF" -Parameters "/uninstall /quiet /norestart /log C:\Windows\Logs\Software\ASPNETSharedFramework31-Uninstall.log" -WindowStyle Hidden
+        Start-Sleep -Seconds 5
+    }
+
+    $RuntimeHB31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include WindowsServerHostingBundle.exe -Recurse -ErrorAction SilentlyContinue
+    ForEach ($Runtime in $RuntimeHB31)
+    {
+        Write-Log -Message "Found $($Runtime.FullName), now attempting to uninstall $installTitle."
+        Execute-Process -Path "$Runtime" -Parameters "/uninstall /quiet /norestart /log C:\Windows\Logs\Software\ASPNETCoreHostingBundle31-Uninstall.log" -WindowStyle Hidden
+        Start-Sleep -Seconds 5
+    }
+
+    $RuntimePath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include dotnet-runtime-3.1.*win*.exe -Recurse -ErrorAction SilentlyContinue
+    ForEach ($Runtime in $RuntimePath31)
+    {
+        Write-Log -Message "Found $($Runtime.FullName), now attempting to uninstall $installTitle."
+        Execute-Process -Path "$Runtime" -Parameters "/uninstall /quiet /norestart /log C:\Windows\Logs\Software\ASPNETCoreRuntime31-Uninstall.log" -WindowStyle Hidden
+        Start-Sleep -Seconds 5
+    }
+}
+
+# Download the ASP.NET Core Runtime 3.1.28 installer to C:\Temp\ASPNETCoreRuntime31 directory
 $currentDownloadPath = "C:\Temp\ASPNETCoreRuntime31\Files\"
 $downloadLink = "https://download.visualstudio.microsoft.com/download/pr/c6eac4d8-45f2-442d-a43d-79b30249cef8/35ffdb7ea4dc51f11705732a3a1d1d4c/dotnet-sdk-3.1.423-win-x64.exe"
 
