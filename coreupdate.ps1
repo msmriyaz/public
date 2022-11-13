@@ -47,19 +47,19 @@ Catch {
 $SFPath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include AspNetCoreSharedFrameworkBundle*.exe -Recurse -ErrorAction SilentlyContinue
 ForEach ($SF in $SFPath31)
 {
-    Write-Host -f Yellow "Found $($SF.FullName), and will uninstall $installTitle."    
+    Write-Host -f Yellow "Found $($SF.FullName), and will be uninstall by $installTitle."    
 }
 
 $RuntimeHB31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include WindowsServerHostingBundle.exe -Recurse -ErrorAction SilentlyContinue
 ForEach ($Runtime in $RuntimeHB31)
 {
-    Write-Host -f Yellow  "Found $($Runtime.FullName), and will uninstall $installTitle."    
+    Write-Host -f Yellow  "Found $($Runtime.FullName), and will be uninstall by $installTitle."    
 }
 
 $RuntimePath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include dotnet-runtime-3.1.*win*.exe -Recurse -ErrorAction SilentlyContinue
 ForEach ($Runtime in $RuntimePath31)
 {
-    Write-Host -f Yellow  "Found $($Runtime.FullName), and will uninstall $installTitle."    
+    Write-Host -f Yellow  "Found $($Runtime.FullName), and will be uninstall by $installTitle."    
 }
 
 # ask the user if they want to remove? if yes, remove
@@ -91,24 +91,46 @@ if ($remove -eq "y") {
     }
 }
 
-# Download the ASP.NET Core Runtime 3.1.28 installer to C:\Temp\ASPNETCoreRuntime31 directory
-$currentDownloadPath = "C:\Temp\ASPNETCoreRuntime31\Files\"
-$downloadLink = "https://download.visualstudio.microsoft.com/download/pr/c6eac4d8-45f2-442d-a43d-79b30249cef8/35ffdb7ea4dc51f11705732a3a1d1d4c/dotnet-sdk-3.1.423-win-x64.exe"
+# ask whether you want to continue installing or not
+$continue = Read-Host -Prompt "Do you want to continue installing? (y/n)"
+if ($continue -eq "y") {
+    # 1
+    # Download the ASP.NET Core Runtime 3.1.29 On Windows, we recommend installing the Hosting Bundle, which includes the .NET Runtime and IIS support to C:\Temp\ASPNETCoreRuntime31 directory
+    $currentDownloadPath = "C:\Temp\ASPNETCoreRuntime31\Files\"
+    $downloadLink = "https://download.visualstudio.microsoft.com/download/pr/d7924d3c-977f-4130-bcf3-5851881e90c4/9f8715d4e5824730da1d78ace9baeb9e/dotnet-hosting-3.1.29-win.exe"
 
-Write-Host "Downloading ASP.NET Core Runtime 3.1.28 installer to C:\Temp\ASPNETCoreRuntime31\Files directory"
-$ProgressPreference = 'SilentlyContinue'
-Invoke-WebRequest -Uri $downloadLink -OutFile $($currentDownloadPath + "dotnet-sdk-3.1.423-win-x64.exe")
-$ProgressPreference = 'Continue'
+    Write-Host "Downloading ASP.NET Core Hosting Bundle, which includes the .NET Runtime and IIS support 3.1.29 installer to C:\Temp\ASPNETCoreRuntime31\Files directory"
+    $ProgressPreference = 'SilentlyContinue'
+    Invoke-WebRequest -Uri $downloadLink -OutFile $($currentDownloadPath + "dotnet-hosting-3.1.29-win.exe")
+    $ProgressPreference = 'Continue'
 
-Write-Host "Download complete"
-Write-Host "Running the installer now"
-# upgrade the existing aspnetcore runtime
-Start-Process -FilePath $($currentDownloadPath + "dotnet-sdk-3.1.423-win-x64.exe") -ArgumentList "/install /quiet /norestart" -Wait
+    Write-Host "Download complete"
+    Write-Host "Running the installer now"
+    # upgrade the existing aspnetcore runtime
+    Start-Process -FilePath $($currentDownloadPath + "dotnet-hosting-3.1.29-win.exe") -ArgumentList "/install /quiet /norestart" -Wait
 
-# reload environment variables
-write-host "Reloading environment variables"
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
-dotnet --list-runtimes
+    # 2
+    # Download the ASP.NET Core Runtime 3.1.29 On Windows, we recommend installing the Hosting Bundle, which includes the .NET Runtime and IIS support to C:\Temp\ASPNETCoreRuntime31 directory
+    $currentDownloadPath = "C:\Temp\ASPNETCoreRuntime31\Files\"
+    $downloadLink = "https://download.visualstudio.microsoft.com/download/pr/ad97751d-b5b0-4646-91db-74705aceac64/c89bcdeb4a10db4768fae62fec33fb42/aspnetcore-runtime-3.1.29-win-x64.exe"
 
-Remove-Item $($currentDownloadPath + "dotnet-sdk-3.1.423-win-x64.exe")
-Read-Host -Prompt "Press any key to continue..."
+    Write-Host "Downloading ASP.NET Core runtime 3.1.29 installer to C:\Temp\ASPNETCoreRuntime31\Files directory"
+    $ProgressPreference = 'SilentlyContinue'
+    Invoke-WebRequest -Uri $downloadLink -OutFile $($currentDownloadPath + "aspnetcore-runtime-3.1.29-win-x64.exe")
+    $ProgressPreference = 'Continue'
+
+    Write-Host "Download complete"
+    Write-Host "Running the installer now"
+    # upgrade the existing aspnetcore runtime
+    Start-Process -FilePath $($currentDownloadPath + "aspnetcore-runtime-3.1.29-win-x64.exe") -ArgumentList "/install /quiet /norestart" -Wait
+
+    # reload environment variables
+    write-host "Reloading environment variables"
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+    dotnet --list-runtimes
+
+    Remove-Item $($currentDownloadPath + "dotnet-hosting-3.1.29-win.exe")
+    Remove-Item $($currentDownloadPath + "aspnetcore-runtime-3.1.29-win-x64.exe")
+    Read-Host -Prompt "Press any key to continue..."
+    Write-Log -Message "Installation of $installTitle completed."
+}
