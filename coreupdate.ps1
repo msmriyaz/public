@@ -16,7 +16,7 @@ $ProgressPreference = 'Continue'
 Unblock-File -Path $($downloadPath + "PSAppDeployToolkit_v3.8.4.zip")
 
 # Extract the contents of the zip file to C:\Temp directory
-Expand-Archive -Path $($downloadPath + "PSAppDeployToolkit_v3.8.4.zip") -DestinationPath $downloadPath
+Expand-Archive -Path $($downloadPath + "PSAppDeployToolkit_v3.8.4.zip") -DestinationPath $downloadPath -Force
 
 # Make a folder ASPNETCoreRuntime31 inside C:\Temp directory
 if (!(Test-Path -Path "C:\Temp\ASPNETCoreRuntime31")) {
@@ -24,10 +24,10 @@ if (!(Test-Path -Path "C:\Temp\ASPNETCoreRuntime31")) {
 }
 
 # Copy item from C:\temp\Toolkit\AppDeployToolkit to C:\Temp\ASPNETCoreRuntime31
-Copy-Item -Path "C:\Temp\Toolkit\AppDeployToolkit" -Destination "C:\Temp\ASPNETCoreRuntime31" -Recurse
+Copy-Item -Path "C:\Temp\Toolkit\AppDeployToolkit" -Destination "C:\Temp\ASPNETCoreRuntime31" -Recurse -Force
 
 # Copy item from C:\temp\Toolkit\Files to C:\Temp\ASPNETCoreRuntime31
-Copy-Item -Path "C:\Temp\Toolkit\Files" -Destination "C:\Temp\ASPNETCoreRuntime31" -Recurse
+Copy-Item -Path "C:\Temp\Toolkit\Files" -Destination "C:\Temp\ASPNETCoreRuntime31" -Recurse -Force
 
 $scriptDirectory = "C:\temp\ASPNETCoreRuntime31"
 ## Variables: Environment
