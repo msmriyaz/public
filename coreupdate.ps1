@@ -48,28 +48,18 @@ Catch {
 
 # Pre-run to warn the user of removing the current version before installing the new version
 $SFPath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include AspNetCoreSharedFrameworkBundle*.exe -Recurse -ErrorAction SilentlyContinue
-ForEach ($SF in $SFPath31)
-{
-    Write-Host -f Yellow "Found $($SF.FullName), admin to choose removal."    
-}
+ForEach ($SF in $SFPath31){Write-Host -f Yellow "Found $($SF.FullName), admin to choose removal."}
 
 $RuntimeHB31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include WindowsServerHostingBundle.exe -Recurse -ErrorAction SilentlyContinue
-ForEach ($Runtime in $RuntimeHB31)
-{
-    Write-Host -f Yellow  "Found $($Runtime.FullName), admin to choose removal."
-}
+ForEach ($Runtime in $RuntimeHB31){Write-Host -f Yellow  "Found $($Runtime.FullName), admin to choose removal."}
 
 $RuntimePath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include dotnet-runtime-3.1.*win*.exe -Recurse -ErrorAction SilentlyContinue
-ForEach ($Runtime in $RuntimePath31)
-{
-    Write-Host -f Yellow  "Found $($Runtime.FullName), admin to choose removal."
-}
+ForEach ($Runtime in $RuntimePath31){Write-Host -f Yellow  "Found $($Runtime.FullName), admin to choose removal."}
 
 # Ask the user if they want to remove? if yes, remove
-$remove = Read-Host -Prompt "Do you want to remove the above? (y/n)"
+$remove = Read-Host -Prompt "Do you want to remove now? (y/n)"
 if ($remove -eq "y") {
-    # Remove Any Existing Version of ASP.NET Core Runtime Shared Framework 3.1
-    $SFPath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include AspNetCoreSharedFrameworkBundle*.exe -Recurse -ErrorAction SilentlyContinue
+    # Remove Any Existing Version of ASP.NET Core Runtime Shared Framework 3.1    
     ForEach ($SF in $SFPath31)
     {
         Write-Log -Message "Found $($SF.FullName), now attempting to uninstall $installTitle."
@@ -77,15 +67,13 @@ if ($remove -eq "y") {
         Start-Sleep -Seconds 5
     }
 
-    $RuntimeHB31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include WindowsServerHostingBundle.exe -Recurse -ErrorAction SilentlyContinue
     ForEach ($Runtime in $RuntimeHB31)
     {
         Write-Log -Message "Found $($Runtime.FullName), now attempting to uninstall $installTitle."
         Execute-Process -Path "$Runtime" -Parameters "/uninstall /quiet /norestart /log C:\Windows\Logs\Software\ASPNETCoreHostingBundle31-Uninstall.log" -WindowStyle Hidden
         Start-Sleep -Seconds 5
     }
-
-    $RuntimePath31 = Get-ChildItem -Path "C:\ProgramData\Package Cache\*" -Include dotnet-runtime-3.1.*win*.exe -Recurse -ErrorAction SilentlyContinue
+        
     ForEach ($Runtime in $RuntimePath31)
     {
         Write-Log -Message "Found $($Runtime.FullName), now attempting to uninstall $installTitle."
