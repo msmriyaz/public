@@ -22,7 +22,7 @@ Write-Host "Installing $target_patch"
 # powershell execute start /wait wusa.exe %~dp0Win7AndW2K8R2-KB3134760-x64.msu /quiet /norestart
 $msu = $($currentDownloadPath + "$targetFile")
 #$arguments = "/quiet /norestart"
-$arguments = "$msu /norestart /quiet /log:$currentDownloadPath\KB5020874.log"
+$arguments = "$msu /quiet /norestart /log:$currentDownloadPath" + "KB5020874.evtx"
 $process = Start-Process -FilePath "wusa.exe" -ArgumentList $arguments -Wait -PassThru -NoNewWindow
 $exitCode = $process.ExitCode
 Write-Host "Exit code: $exitCode"
