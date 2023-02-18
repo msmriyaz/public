@@ -25,7 +25,7 @@ To test the code, you can follow these steps:
 
 ## Autho notes:
 To run this program locally
-`cd /devops/pydev`
-`source venv/bin/activate`
-`cd /venv/ig2sharesight`
-`python ig2sharesightconvert.py`
+- `cd /devops/pydev`
+- `source venv/bin/activate`
+- `cd /venv/ig2sharesight`
+- `python ig2sharesightconvert.py`
