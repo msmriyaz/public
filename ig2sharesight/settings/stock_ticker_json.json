@@ -1,48 +1,8 @@
 [
     {
-        "name": "Harvey Norman Holdings Ltd",
-        "exchange": "ASX",
-        "stock": "HVN"
-    },
-    {
-        "name": "JB Hi-Fi Ltd",
-        "exchange": "ASX",
-        "stock": "JBH"
-    },
-    {
-        "name": "Wesfarmers Ltd",
-        "exchange": "ASX",
-        "stock": "WES"
-    },
-    {
-        "name": "Woolworths Group Ltd",
-        "exchange": "ASX",
-        "stock": "WOW"
-    },
-    {
-        "name": "Infosys Ltd - ADR",
+        "name": "Accenture PLC",
         "exchange": "NYSE",
-        "stock": "INFY"
-    },
-    {
-        "name": "Zoom Video Communications Inc (All Sessions)",
-        "exchange": "NASDAQ",
-        "stock": "ZM"
-    },
-    {
-        "name": "QUALCOMM Inc (All Sessions)",
-        "exchange": "NASDAQ",
-        "stock": "QCOM"
-    },
-    {
-        "name": "Apple Inc (All Sessions)",
-        "exchange": "NASDAQ",
-        "stock": "AAPL"
-    },
-    {
-        "name": "Amazon.com Inc (All Sessions)",
-        "exchange": "NASDAQ",
-        "stock": "AMZN"
+        "stock": "ACN"
     },
     {
         "name": "Alphabet Inc - A (All Sessions)",
@@ -50,9 +10,19 @@
         "stock": "GOOGL"
     },
     {
-        "name": "UnitedHealth Group Inc (All Sessions)",
-        "exchange": "NYSE",
-        "stock": "UNH"
+        "name": "Amazon.com Inc (All Sessions)",
+        "exchange": "NASDAQ",
+        "stock": "AMZN"
+    },
+    {
+        "name": "Amazon.com Inc (All Sessions)",
+        "exchange": "NASDAQ",
+        "stock": "AMZN"
+    },
+    {
+        "name": "Appen Limited",
+        "exchange": "ASX",
+        "stock": "APX"
     },
     {
         "name": "Apple Inc (All Sessions)",
@@ -60,9 +30,29 @@
         "stock": "AAPL"
     },
     {
-        "name": "Zoom Video Communications Inc (All Sessions)",
+        "name": "Boeing Co (All Sessions)",
+        "exchange": "NYSE",
+        "stock": "BA"
+    },
+    {
+        "name": "Harvey Norman Holdings Ltd",
+        "exchange": "ASX",
+        "stock": "HVN"
+    },
+    {
+        "name": "Infosys Ltd - ADR",
+        "exchange": "NYSE",
+        "stock": "INFY"
+    },
+    {
+        "name": "JB Hi-Fi Ltd",
+        "exchange": "ASX",
+        "stock": "JBH"
+    },
+    {
+        "name": "QUALCOMM Inc (All Sessions)",
         "exchange": "NASDAQ",
-        "stock": "ZM"
+        "stock": "QCOM"
     },
     {
         "name": "Taiwan Semiconductor Manufacturing Co Ltd - ADR",
@@ -70,24 +60,14 @@
         "stock": "TSM"
     },
     {
-        "name": "Accenture PLC",
+        "name": "UnitedHealth Group Inc (All Sessions)",
         "exchange": "NYSE",
-        "stock": "ACN"
+        "stock": "UNH"
     },
     {
         "name": "Vanguard S&P 500 Growth ETF",
         "exchange": "NYSE",
         "stock": "VOOG"
-    },
-    {
-        "name": "Boeing Co (All Sessions)",
-        "exchange": "NYSE",
-        "stock": "BA"
-    },
-    {
-        "name": "Amazon.com Inc (All Sessions)",
-        "exchange": "NASDAQ",
-        "stock": "AMZN"
     },
     {
         "name": "Vanguard Total Stock Market ETF",
@@ -100,8 +80,18 @@
         "stock": "WMT"
     },
     {
-        "name": "Appen Limited",
+        "name": "Wesfarmers Ltd",
         "exchange": "ASX",
-        "stock": "APX"
+        "stock": "WES"
+    },
+    {
+        "name": "Woolworths Group Ltd",
+        "exchange": "ASX",
+        "stock": "WOW"
+    },
+    {
+        "name": "Zoom Video Communications Inc (All Sessions)",
+        "exchange": "NASDAQ",
+        "stock": "ZM"
     }
 ]
