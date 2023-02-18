@@ -88,5 +88,20 @@
         "name": "Amazon.com Inc (All Sessions)",
         "exchange": "NASDAQ",
         "stock": "AMZN"
+    },
+    {
+        "name": "Vanguard Total Stock Market ETF",
+        "exchange": "ASX",
+        "stock": "VTS"
+    },
+    {
+        "name": "Walmart Inc (All Sessions)",
+        "exchange": "NYSE",
+        "stock": "WMT"
+    },
+    {
+        "name": "Appen Limited",
+        "exchange": "ASX",
+        "stock": "APX"
     }
 ]
