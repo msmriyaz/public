@@ -22,3 +22,10 @@ To test the code, you can follow these steps:
 4. Run the code using the following command:
 `python3 convert_trade_history.py`
 5. The output file will be generated in the `output` folder.
+
+## Autho notes:
+To run this program locally
+`cd /devops/pydev`
+`source venv/bin/activate`
+`cd /venv/ig2sharesight`
+`python ig2sharesightconvert.py`
